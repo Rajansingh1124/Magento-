@@ -1,0 +1,29 @@
+version: '3.3'
+
+services:
+   db:
+     image: mysql:5.7
+     volumes:
+       - db_data:/var/lib/mysql
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: doodleblue
+       MYSQL_DATABASE: magento
+       MYSQL_USER: venkey
+       MYSQL_PASSWORD: doodleblue123
+
+   magento:
+     depends_on:
+       - db
+     image: alexcheng/magento2:latest
+     ports:
+       - "8002:80"
+     restart: always
+     environment:
+       MAGENTO_DB_HOST: db:3306
+       MAGENTO_DB_USER: joven
+       MAGENTO_DB_PASSWORD: joven123
+       MAGENTO_DB_NAME: magento
+
+volumes:
+   db_data: {}
